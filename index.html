@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+        }
+
+        .product-item h2 {
+            font-size: 1.2em;
+            margin: 0 0 10px;
+        }
+
+        .product-item p {
+            margin: 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+        <div class="product-list" id="product-list">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const products = [
+                { id: 1, name: 'Product 1', category: 1, subcategory: 22 },
+                { id: 2, name: 'Product 2', category: 1, subcategory: 20 },
+                { id: 3, name: 'Product 3', category: 1, subcategory: 18 },
+                { id: 4, name: 'Product 4', category: 1, subcategory: 12 },
+                { id: 5, name: 'Product 5', category: 1, subcategory: 13 },
+                { id: 6, name: 'Product 6', category: 1, subcategory: 25 },
+                { id: 7, name: 'Product 7', category: 2, subcategory: 30 }, // This one won't be shown
+            ];
+
+            const specificSubcategories = [22, 20, 18, 12, 13, 25];
+            const filteredProducts = products.filter(product => product.category === 1 && specificSubcategories.includes(product.subcategory));
+
+            const productListElement = document.getElementById('product-list');
+            filteredProducts.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <p>Category: ${product.category}</p>
+                    <p>Subcategory: ${product.subcategory}</p>
+                `;
+                productListElement.appendChild(productItem);
+            });
+        });
+    </script>
+</body>
+</html>
